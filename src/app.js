@@ -1,18 +1,31 @@
 import faker from 'faker';
 
-const randomName = faker.name.findName();
-const image = faker.random.image();
-const address = faker.address.secondaryAddress();
+console.log('app.js is running breh');
 
-const imageNode = document.createElement('img');
-imageNode.src = image;
+function genFakerStuff() {
+  const randomName = faker.name.findName();
+  const address = faker.address.secondaryAddress();
 
-const nameNode = document.createElement('p');
-nameNode.innerText = randomName;
+  return {
+    randomName,
+    address,
+  };
+}
 
-const addressNode = document.createElement('p');
-addressNode.innerText = address;
+function createPerson({ randomName, address }) {
+  const nameNode = document.createElement('p');
+  nameNode.innerText = randomName;
 
-const arr = [nameNode, imageNode, addressNode];
-arr.forEach(el => document.body.appendChild(el));
+  const addressNode = document.createElement('p');
+  addressNode.innerText = address;
 
+  const arr = [nameNode, addressNode];
+  arr.forEach(el => document.body.appendChild(el));
+}
+
+// create random people
+let num = 0;
+while (num !== 10) {
+  createPerson(genFakerStuff());
+  num += 1;
+}

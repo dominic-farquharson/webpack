@@ -107,6 +107,66 @@ const config = {
 module.exports = config;
 ```
 
+## Development Tools
+
+### Watch mode
+
+You can instruct webpack to "watch" all files within your dependency graph for changes. If one of these files is updated, the code will be recompiled so you don't have to run the full build manually.
+
+```bash
+"watch": "webpack --watch"
+```
+
+### Webpack Dev Server
+
+The webpack-dev-server provides you with a simple web server and the ability to use live reloading. Let's set it up:
+
+```bash
+npm install --save-dev webpack-dev-server
+```
+
+Change your config file to tell the dev server where to look for files:
+```js
+
+//webpack.config.js
+
+  const path = require('path');
+  const HtmlWebpackPlugin = require('html-webpack-plugin');
+  const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+  module.exports = {
+    entry: {
+      app: './src/index.js',
+      print: './src/print.js'
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+     contentBase: './dist'
+    },
+    plugins: [
+      new CleanWebpackPlugin(['dist']),
+      new HtmlWebpackPlugin({
+        title: 'Development'
+      })
+    ],
+    output: {
+      filename: '[name].bundle.js',
+      path: path.resolve(__dirname, 'dist')
+    }
+  };
+
+```
+
+This tells webpack-dev-server to serve the files from the dist directory on localhost:8080.
+
+Adding script to easily start server: 
+
+```js
+"start": "webpack-dev-server --open"
+```
+
+Now we can run npm start from the command line and we will see our browser automatically loading up our page. If you now change any of the source files and save them, the web server will automatically reload after the code has been compiled. Give it a try!
+
 
 
 ### References
