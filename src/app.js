@@ -1,7 +1,5 @@
 import faker from 'faker';
 
-console.log('app.js is running breh');
-
 function genFakerStuff() {
   const randomName = faker.name.findName();
   const address = faker.address.secondaryAddress();
